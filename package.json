@@ -1,0 +1,56 @@
+{
+	"name": "Clay",
+	"displayName": "Clay",
+	"description": "a converter to transform picked text to any format",
+	"publisher": "drinking",
+	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/drinking/Clay.git"
+	},
+	"engines": {
+		"vscode": "^1.38.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.schema2bean",
+		"onCommand:extension.spi2request",
+		"onCommand:extension.text2some"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.schema2bean",
+				"title": "Convert SQL Schema to ..."
+			},
+			{
+				"command": "extension.spi2request",
+				"title": "Convert spi to reuquest"
+			},
+			{
+				"command": "extension.text2some",
+				"title": "Convert picked text to somthing"
+			}
+		]
+	},
+	"scripts": {
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.38.0",
+		"eslint": "^5.13.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"typescript": "^3.3.1",
+		"vscode-test": "^1.2.0"
+	},
+	"dependencies": {
+		"mustache": "^3.1.0"
+	}
+}

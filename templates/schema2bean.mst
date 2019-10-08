@@ -1,0 +1,33 @@
+{{#props}}
+/ **
+* {{comment}}
+*/
+private {{type}} {{name}};
+{{/props}}
+{{#requestParams}}
+@RequestParam(value = "{{name}}", required = false, defaultValue = "") {{type}} {{name}}{{comma}}
+{{/requestParams}}
+{{#annotation}}
+    /** 
+     * {{comment}}
+    {{#params}}
+     * @param {{name}} {{comment}}
+    {{/params}}
+     * @return
+     * @author drinking
+     * @since {{time}}
+     * @version v1
+     * @summary {{comment}}
+     */
+{{/annotation}}
+{{#mapper}}
+    Map<String, Object> param = MapSugar.paramMap(
+{{#params}}
+    "{{name}}", {{name}}{{comma}}
+{{/params}}
+    );
+{{/mapper}}
+{{#sqlInsert}}
+INSERT INTO {{{tableName}}} ({{#params}}{{name}}{{comma}}{{/params}})
+VALUES ({{#params}}''{{comma}}{{/params}})
+{{/sqlInsert}}

@@ -1,0 +1,35 @@
+
+
+{{#POST}}
+curl 
+{{#headers}}
+-H "{{name}}:"
+{{/headers}}
+-X POST -d '{{#params}}{{name}}={{defaultValue}} &{{/params}}'
+http://localhost.com{{{url}}}
+{{/POST}}
+
+
+{{#GET}}
+curl -X GET 
+'http://localhost.com{{{url}}}?{{#params}}{{name}}={{defaultValue}}&{{/params}}'
+{{#headers}}
+-H '{{name}}:'
+{{/headers}}
+{{/GET}}
+
+
+{{#POSTJSON}}
+curl 
+{{#headers}}
+-H "{{name}}:"
+{{/headers}}
+-X POST -d
+'{
+    {{#params}}
+    "{{name}}": {{defaultValue}},
+    {{/params}}
+}'
+http://localhost.com{{{url}}}
+{{/POSTJSON}}
+
