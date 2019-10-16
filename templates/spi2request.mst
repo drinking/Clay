@@ -6,13 +6,13 @@ curl
 -H "{{name}}:"
 {{/headers}}
 -X POST -d '{{#params}}{{name}}={{defaultValue}} &{{/params}}'
-http://localhost.com{{{url}}}
+http://localhost:8081{{{url}}}
 {{/POST}}
 
 
 {{#GET}}
 curl -X GET 
-'http://localhost.com{{{url}}}?{{#params}}{{name}}={{defaultValue}}&{{/params}}'
+'http://localhost:8081{{{url}}}?{{#params}}{{name}}={{defaultValue}}&{{/params}}'
 {{#headers}}
 -H '{{name}}:'
 {{/headers}}
@@ -30,6 +30,6 @@ curl
     "{{name}}": {{defaultValue}},
     {{/params}}
 }'
-http://localhost.com{{{url}}}
+http://localhost:8081{{{url}}}
 {{/POSTJSON}}
 

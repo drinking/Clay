@@ -17,7 +17,7 @@ const parserDefines = {
     },
     SPIParam: function (content) {
         var metas = metaFromSql(content).params.map(m => {
-            if (m.type === "Date") {
+            if (m.type === "date") {
                 m.type = "long"
             }
             return m
@@ -30,7 +30,7 @@ const parserDefines = {
     },
     MethodParams: function(content) {
         var body = metaFromSql(content).params.map(v => {
-            if (v.type === "Date") {
+            if (v.type === "date") {
                 v.type = "long"
             }
             return v.type +" "+ v.name 
@@ -85,17 +85,21 @@ function parseParam(content) {
     var strArray = content.split(" ")
     obj.name = strArray[0].replace(/`/g, '')
 
-    let typeStr = strArray[1]
+    let typeStr = strArray[1].toLowerCase();
     if (typeStr.indexOf("int") !== -1) {
         obj.type = "int"
     } else if (typeStr.indexOf("bigint") !== -1) {
         obj.type = "long"
     } else if (typeStr.indexOf("datetime") !== -1) {
-        obj.type = "Date"
+        obj.type = "date"
     } else if (typeStr.indexOf("bit") !== -1 || typeStr.indexOf("boolean") !== -1) {
         obj.type = "boolean"
     } else if (typeStr.indexOf("char") !== -1) {
         obj.type = "String"
+    } else if (typeStr.indexOf("float") !== -1) {
+        obj.type = "float"
+    } else if (typeStr.indexOf("double") !== -1) {
+        obj.type = "double"
     }
 
     if (content.indexOf("COMMENT") >= 0) {

@@ -1,8 +1,8 @@
 {{#props}}
-/ **
-* {{comment}}
-*/
-private {{type}} {{name}};
+    /**
+    * {{comment}}
+    */
+    private {{type}} {{name}};
 {{/props}}
 {{#requestParams}}
 @RequestParam(value = "{{name}}", required = false, defaultValue = "") {{type}} {{name}}{{comma}}
@@ -29,5 +29,5 @@ private {{type}} {{name}};
 {{/mapper}}
 {{#sqlInsert}}
 INSERT INTO {{{tableName}}} ({{#params}}{{name}}{{comma}}{{/params}})
-VALUES ({{#params}}''{{comma}}{{/params}})
+VALUES ({{#params}}{{=<% %>=}}{<%={{ }}=%>#{{name}}{{=<% %>=}}}<%={{ }}=%>{{comma}}{{/params}})
 {{/sqlInsert}}
