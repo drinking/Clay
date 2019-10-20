@@ -17,7 +17,8 @@
 	"activationEvents": [
 		"onCommand:extension.schema2bean",
 		"onCommand:extension.spi2request",
-		"onCommand:extension.text2some"
+		"onCommand:extension.text2some",
+		"onCommand:extension.latest2some"
 	],
 	"main": "./extension.js",
 	"contributes": {
@@ -32,8 +33,13 @@
 			},
 			{
 				"command": "extension.text2some",
-				"title": "Convert picked text to somthing"
+				"title": "Convert picked text to something"
+			},
+			{
+				"command": "extension.latest2some",
+				"title": "Convert latest used text to something"
 			}
+
 		]
 	},
 	"scripts": {
