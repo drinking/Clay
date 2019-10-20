@@ -29,5 +29,13 @@
 {{/mapper}}
 {{#sqlInsert}}
 INSERT INTO {{{tableName}}} ({{#params}}{{name}}{{comma}}{{/params}})
-VALUES ({{#params}}{{=<% %>=}}{<%={{ }}=%>#{{name}}{{=<% %>=}}}<%={{ }}=%>{{comma}}{{/params}})
+VALUES ({{#params}}#{{=<% %>=}}{<%={{ }}=%>{{name}}{{=<% %>=}}}<%={{ }}=%>{{comma}}{{/params}})
 {{/sqlInsert}}
+
+{{#sqlUpdate}}
+UPDATE {{{tableName}}}
+{{#params}}
+set `{{name}}` = #{{=<% %>=}}{<%={{ }}=%>{{name}}{{=<% %>=}}}<%={{ }}=%>{{comma}}
+{{/params}}
+where `id` =
+{{/sqlUpdate}}

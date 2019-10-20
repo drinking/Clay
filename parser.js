@@ -44,6 +44,9 @@ const parserDefines = {
     },
     SQLInsert:function(content) {
         return render("sqlInsert", metaFromSql(content))
+    },
+    SQLUpdate:function(content) {
+        return render("sqlUpdate", metaFromSql(content))
     }
 }
 
