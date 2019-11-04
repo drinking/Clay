@@ -66,7 +66,7 @@ function metaFromSql(content) {
     if (!array) {
         throw "parse failure";
     }
-    var params = array.map(x => parseParam(x));
+    var params = array.map(x => parseParam(x)).filter(x => x != null);
     params[params.length-1].comma = ""
 
     var comment;
@@ -86,8 +86,11 @@ function metaFromSql(content) {
 function parseParam(content) {
     var obj = {comma:","}
     var strArray = content.split(" ")
-    obj.name = strArray[0].replace(/`/g, '')
+    if (strArray.length < 2) {
+        return null;
+    }
 
+    obj.name = strArray[0].replace(/`/g, '')
     let typeStr = strArray[1].toLowerCase();
     if (typeStr.indexOf("int") !== -1) {
         obj.type = "int"
