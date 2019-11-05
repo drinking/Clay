@@ -1,28 +1,33 @@
-
-
 {{#POST}}
 curl 
 {{#headers}}
--H "{{name}}:"
+-H "{{name}}:{{defaultValue}}"
 {{/headers}}
 -X POST -d '{{#params}}{{name}}={{defaultValue}} &{{/params}}'
 http://localhost:8081{{{url}}}
 {{/POST}}
 
-
 {{#GET}}
 curl -X GET 
 'http://localhost:8081{{{url}}}?{{#params}}{{name}}={{defaultValue}}&{{/params}}'
 {{#headers}}
--H '{{name}}:'
+-H '{{name}}:{{defaultValue}}'
 {{/headers}}
 {{/GET}}
 
-
-{{#POSTJSON}}
+{{#PUT}}
 curl 
 {{#headers}}
--H "{{name}}:"
+-H "{{name}}:{{defaultValue}}"
+{{/headers}}
+-X PUT -d '{{#params}}{{name}}={{defaultValue}} &{{/params}}'
+http://localhost:8081{{{url}}}
+{{/PUT}}
+
+{{#POSTJSON}}
+curl ···
+{{#headers}}
+-H "{{name}}:{{defaultValue}}"
 {{/headers}}
 -X POST -d
 '{
@@ -32,4 +37,3 @@ curl
 }'
 http://localhost:8081{{{url}}}
 {{/POSTJSON}}
-

@@ -11,6 +11,13 @@ const textParserDefines = {
     }
 }
 
+const defaultHTTPHeader = {
+    name:'X-Login-UserId',
+    defaultValue:'2110000000000236'
+}
+
+const ignoreHTTPHeaderName = ['loginUserId']
+
 const parserDefines = {
     Bean: function (content) {
         return render("props", metaFromSql(content).params)
@@ -162,7 +169,8 @@ function parseSpi(content) {
     let url = array[0].match(/".*"/g)[0].replace(/"/g,"")
     let headers = array.map(line => {
         return parseParameter("RequestHeader",line)
-    }).filter(x => !!x.name);
+    }).filter(x => !!x.name).filter(x => !ignoreHTTPHeaderName.includes(x.name));
+    headers.push(defaultHTTPHeader);
 
     let params = array.map(line => {
         return parseParameter("RequestParam",line)
