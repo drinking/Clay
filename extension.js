@@ -134,6 +134,7 @@ function handleSpi2Request(latestInput,callback) {
 
 function handleText2Some() {
 
+	vscode.window.showInputBox()
 	vscode.window.showQuickPick(parser.textParserNames).then(type => {
 		try {
 
@@ -141,19 +142,33 @@ function handleText2Some() {
 			let document = editor.document;
 			let selection = editor.selection;
 			let text = document.getText(selection);
-			if (!text || text.length == 0) {
+			if (!text || text.length == 0 || editor == null) {
 				vscode.window.showErrorMessage("No text selected");
 				return;
 			}
 
-			let result = parser.textParse(type, text);
-			console.log(result);
-			if (editor) {
+			var replaceByResult = function(result) {
 				editor.edit(function (editBuilder) {
 					let selection = editor.selection;
 					editBuilder.replace(selection, result);
 				});
 			}
+
+			//first query parsers require input params
+			var inputParser = parser.textInputParser(type)
+			if(inputParser != null) {
+				let options = {
+					placeHolder: inputParser("placeholder",null)
+				}
+				vscode.window.showInputBox(options).then( input => {
+					var result = inputParser(input,text);
+					replaceByResult(result);
+				});
+			}else {
+				let result = parser.textParse(type, text);
+				replaceByResult(result);
+			}
+			
 		} catch (error) {
 			vscode.window.showErrorMessage(error.toString());
 		}

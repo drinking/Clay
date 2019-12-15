@@ -8,7 +8,26 @@ const textParserDefines = {
     },
     URLDecode:function(content) {
         return decodeURIComponent(content);
+    },
+    RowsTransfer:function(content) {
+        // jump to textInputParserDefines
     }
+}
+
+const textInputParserDefines = {
+
+    RowsTransfer:function(input,content) {
+        if (input == "placeholder") {
+            return "input 'head' 'seperator' 'end' seperated by whitespace, or empty for defalut tokens '( , ),' "
+        }
+        if (input == null || input.length==0) {
+            return transferLineByLine(content,"(",",","),");
+        }else {
+            var array = input.split(" ");
+            return transferLineByLine(content,array[0],array[1],array[2]);
+        }
+    }
+
 }
 
 const defaultHTTPHeader = {
@@ -61,8 +80,12 @@ function parse(type, content) {
     return parserDefines[type](content);
 }
 
-function textParse(type, content) {
+function parseText(type, content) {
     return textParserDefines[type](content);
+}
+
+function textInputParser(type,input,content) {
+    return textInputParserDefines[type];
 }
 
 function metaFromSql(content) {
@@ -187,13 +210,30 @@ function render2Curl(meta) {
     return mustache.render(template, { [meta.method]: meta }).replace(/(\r\n|\n|\r)/gm," ");
 }
 
+// receiving input params like begin, seperator, end,
+// to trasfer rows into other formats
+// e.g. begin=(  seperator=, end=)  will convert row = a b c to (a,b,c)
+function transferLineByLine(content,begin,seperator,end){
+    var strArray = content.split("\n").map(row => {
+        return row.replace(/\t/g,' ').replace(/\s+/g,' ').trim();
+    }).filter( row => {
+        return row.replace(/\s+/g,'').length>0
+    }).map(row => {
+        return begin + row.split(" ").join(seperator) + end
+    });
+
+    return strArray.join("\n");
+
+}
+
 const parserNames = Object.keys(parserDefines)
 const textParserNames = Object.keys(textParserDefines)
 
 module.exports = {
-    parse,
-    textParse,
     parserNames,
+    parse,
     textParserNames,
+    parseText,
+    textInputParser,
     parseSpi
 }

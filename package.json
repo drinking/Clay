@@ -25,19 +25,19 @@
 		"commands": [
 			{
 				"command": "extension.schema2bean",
-				"title": "Convert SQL Schema to ..."
+				"title": "Convert SQL Schema "
 			},
 			{
 				"command": "extension.spi2request",
-				"title": "Convert spi to reuquest"
+				"title": "Convert SPI "
 			},
 			{
 				"command": "extension.text2some",
-				"title": "Convert picked text to something"
+				"title": "Convert selected text "
 			},
 			{
 				"command": "extension.latest2some",
-				"title": "Convert latest used text to something"
+				"title": "Convert last"
 			}
 
 		]
